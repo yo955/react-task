@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useGetSingleProduct } from "../hooks";
 
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-}
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
 
-  useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then(res => res.json())
-      .then(data => setProduct(data));
-  }, [id]);
+  const { product, loading, error } = useGetSingleProduct(id ?? "");
+  if (loading) return <p className="text-center py-10">Loading...</p>;
+  if (error) return <p className="text-center py-10 text-red-500">Error loading product details.</p>;
+
+
 
   if (!product) return <p className="text-center py-10">Loading...</p>;
 
