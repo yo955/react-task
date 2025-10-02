@@ -1,6 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 
+const NavLinks = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Products", path: "/products" },
+];
 const Header = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -15,41 +20,20 @@ const Header = () => {
 
         {/* Navigation */}
         <nav className="space-x-6 hidden md:flex">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-lg font-medium transition-all duration-200 ${isActive
-                ? "bg-blue-600 text-white"
-                : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-              }`
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-lg font-medium transition-all duration-200 ${isActive
-                ? "bg-blue-600 text-white"
-                : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-              }`
-            }
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="/products"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-lg font-medium transition-all duration-200 ${isActive
-                ? "bg-blue-600 text-white"
-                : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-              }`
-            }
-          >
-            Products
-          </NavLink>
+          {NavLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className={({ isActive }) =>
+                `text-gray-600 hover:text-blue-600 transition-colors duration-200 ${isActive ? "font-semibold text-blue-600" : ""
+                }`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
         </nav>
-        
+
         {/* Mobile Menu Button */}
         <MobileMenu />
 

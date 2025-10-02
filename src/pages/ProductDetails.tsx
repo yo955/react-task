@@ -11,7 +11,7 @@ const ProductDetails = () => {
 
 
 
-  if (!product) return <p className="text-center py-10">Loading...</p>;
+  if (!product) return <p className="text-center py-10">Product not found.</p>;
 
   return (
     <div className="container mx-auto py-10 flex flex-col md:flex-row gap-10">

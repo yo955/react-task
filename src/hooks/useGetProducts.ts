@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../services/getAllProducts";
 import { AxiosError } from "axios";
 import type { Product } from "../types";
+import { getAllProducts } from "../services";
 
-export const useGetProducts = (limit?: number) => {
+export const useGetProducts = (limit?: number, category?: string) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +12,7 @@ export const useGetProducts = (limit?: number) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await getAllProducts();
+        const data = await getAllProducts(category);
         setProducts(limit ? data.slice(0, limit) : data);
       } catch (err: unknown) {
         if (err instanceof AxiosError) {
@@ -26,8 +26,7 @@ export const useGetProducts = (limit?: number) => {
     };
 
     fetchData();
-
-  }, [limit]);
+  }, [limit, category]);
 
   return { products, loading, error };
 };
